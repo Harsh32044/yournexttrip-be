@@ -1,0 +1,60 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Cities{
+  city_id string [primary key]
+  cityName string
+  tours array // array of tour_id
+}
+
+Table Tour {
+  city_id string
+  tour_id string [primary key]
+  price number
+  title string
+  description string
+  time timestamp
+  tags array
+  highlights array
+  overview string
+  itinerary array
+  package_inclusions array
+  package_exclusions array
+  add_ons array
+  information array
+  rating number
+  maxGroupSize number
+}
+
+Table itinerary {
+  title string
+  day array
+}
+table Day{
+  title string
+  icon string
+  body string
+}
+Table add_ons{
+  title string
+  description string
+  alert string
+}
+
+Table posts {
+  id integer [primary key]
+  title varchar
+  body text [note: 'Content of the post']
+  user_id integer [not null]
+  status varchar
+  created_at timestamp
+}
+
+Table payments {
+  txn_id string [primary key]
+}
+Ref cityTour: Cities.city_id > Tour.city_id
+Ref tour_itinerary: Tour.itinerary> itinerary.title // many-to-one
+Ref itinerary : itinerary.day> Day.title
+Ref Add_ONS : Tour.add_ons > add_ons.title
+Ref information : Tour.information > Day.title
