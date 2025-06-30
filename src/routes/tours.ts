@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 const router = express.Router();
 import { city, tour } from '../models/db';
 
@@ -18,7 +18,7 @@ import { city, tour } from '../models/db';
  *       200:
  *         description: List of tours
  */
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
     try {
         const {cityName} = req.query;
         let query: any = {};
