@@ -24,7 +24,7 @@ router.get('/', async (req: Request, res: Response) => {
         let query: any = {};
         let tours = {};
         if (cityName) {
-            query.cityName = cityName;
+            query.cityName = capitalizeFirstLetter(cityName as string);
             const cityId = await city.findOne(query);
             tours = await tour.find({ city_id: cityId?.cityId });
         }
@@ -36,5 +36,10 @@ router.get('/', async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Failed to fetch tours' });
     }
 });
+
+function capitalizeFirstLetter(str: string): string {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
 export default router;
