@@ -21,17 +21,25 @@ import { city, tour } from '../models/db';
 router.get('/', async (req: Request, res: Response) => {
     try {
         const {cityName} = req.query;
+        let subText = '';
+        let shortDesc = '';
         let query: any = {};
         let tours = {};
         if (cityName) {
             query.cityName = capitalizeFirstLetter(cityName as string);
             const cityId = await city.findOne(query);
             tours = await tour.find({ city_id: cityId?.cityId });
+            subText = cityId?.subText || '';
+            shortDesc = cityId?.shortDesc || '';
         }
         else {
             tours = await tour.find({});
         }
-        res.json(tours);
+        res.json({
+            subText,
+            shortDesc,
+            tours
+        });
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch tours' });
     }
