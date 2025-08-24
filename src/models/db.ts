@@ -3,7 +3,7 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-mongoose.connect("mongodb+srv://harshadmin:harshadmin32044@yournexttrip-cluster.cyhzaio.mongodb.net/yournexttripmain", {
+mongoose.connect(process.env.MONGO_URL!, {
     tls: true,
     tlsInsecure: false,
     serverApi: {
