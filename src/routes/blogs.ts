@@ -58,9 +58,7 @@ router.get("/:id", async (req: Request, res: Response) => {
           msg: "We couldn't find that blogsterpiece. Please try another ;(",
         });
     } else {
-      res.status(200).json({
-        blogs,
-      });
+      res.status(200).json(blogs);
     }
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch blog post" });
